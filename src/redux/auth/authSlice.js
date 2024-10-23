@@ -4,7 +4,8 @@ import { register, logIn, logOut, refreshUser } from './authOperations';
 const authSlice = createSlice({
   name: 'auth',
   initialState: {
-    user: { name: null, email: null },
+    // user: { name: null, email: null },
+    user: { email: null },
     token: null,
     isLoggedIn: false,
     isRefreshing: false,
@@ -13,8 +14,10 @@ const authSlice = createSlice({
     builder
       .addCase(register.fulfilled, (state, action) => {
         state.user = action.payload.user;
-        state.token = action.payload.token;
-        state.isLoggedIn = true;
+        // state.token = action.payload.token;
+        state.token = null;
+        // state.isLoggedIn = true;
+        state.isLoggedIn = false;
       })
       .addCase(logIn.fulfilled, (state, action) => {
         state.user = action.payload.user;
@@ -22,7 +25,8 @@ const authSlice = createSlice({
         state.isLoggedIn = true;
       })
       .addCase(logOut.fulfilled, state => {
-        state.user = { name: null, email: null };
+        // state.user = { name: null, email: null };
+        state.user = { email: null };
         state.token = null;
         state.isLoggedIn = false;
       })

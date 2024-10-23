@@ -1,7 +1,8 @@
 import axios from 'axios';
 import { createAsyncThunk } from '@reduxjs/toolkit';
 
-axios.defaults.baseURL = 'https://connections-api.goit.global';
+// axios.defaults.baseURL = 'https://connections-api.goit.global';
+axios.defaults.baseURL = 'https://nodebackend-bymv.onrender.com/api';
 
 const setAuthHeader = token => {
   axios.defaults.headers.common.Authorization = `Bearer ${token}`;}
@@ -11,10 +12,12 @@ const clearAuthHeader = () => {
 
 export const register = createAsyncThunk(
   'auth/register',
-  async ({ name, email, password }, thunkAPI) => {
+  // async ({ name, email, password }, thunkAPI) => {
+    async ({ email, password }, thunkAPI) => {
     try {
-      const res = await axios.post('/users/signup', { name, email, password });
-      setAuthHeader(res.data.token);
+      // const res = await axios.post('/users/signup', { name, email, password });
+      const res = await axios.post('/users/signup', { email, password });
+      // setAuthHeader(res.data.token);
       return res.data;
     } catch (error) {
       return thunkAPI.rejectWithValue(error.message);
@@ -37,7 +40,8 @@ export const logIn = createAsyncThunk(
 
 export const logOut = createAsyncThunk('auth/logout', async (_, thunkAPI) => {
   try {
-    await axios.post('/users/logout');
+    // await axios.post('/users/logout');
+    await axios.get('/users/logout');
     clearAuthHeader();
   } catch (error) {
     return thunkAPI.rejectWithValue(error.message);

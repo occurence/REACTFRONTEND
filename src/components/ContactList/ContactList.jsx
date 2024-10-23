@@ -23,7 +23,8 @@ export const ContactList = () => {
             {!isLoading && !isError && filteredContacts.length > 0 && filteredContacts.map(
                     filteredContact => (
                         <ContactListItem
-                            key={filteredContact.id}
+                            // key={filteredContact.id}
+                            key={filteredContact._id}
                             filteredContact={filteredContact}
                             //deleteContact={deleteContact}
                         />
